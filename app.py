@@ -6,11 +6,9 @@ import requests
 from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
 import os
-from dotenv import load_dotenv
 
 
 
-load_dotenv()
 
 st.set_page_config(
     page_title="MovieGPT",
@@ -21,7 +19,7 @@ st.set_page_config(
 
 st.caption("Made by Shaheer Rangrej")
 
-TMDB_API_KEY = os.getenv("TMDB_API_KEY")
+TMDB_API_KEY = st.secrets["TMDB_API_KEY"]
 
 session = requests.Session()
 
