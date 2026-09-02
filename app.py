@@ -8,7 +8,55 @@ from urllib3.util.retry import Retry
 import os
 
 
+MOVIE_URL = "https://github.com/B-Samy/Movie-Recomendation-System/releases/download/v1.0.0/movie_dict.pkl"
 
+SIMILARITY_URL = "https://github.com/B-Samy/Movie-Recomendation-System/releases/download/v1.0.0/simalirity.pkl"
+
+
+
+
+def download_file(url, filename):
+
+    if not os.path.exists(filename):
+
+        response = requests.get(
+            url,
+            stream=True,
+            timeout=300
+        )
+
+        response.raise_for_status()
+
+        with open(filename, "wb") as file:
+
+            for chunk in response.iter_content(
+                chunk_size=1024 * 1024
+            ):
+
+                if chunk:
+                    file.write(chunk)
+
+
+download_file(
+    MOVIE_URL,
+    "movie_dict.pkl"
+)
+
+download_file(
+    SIMILARITY_URL,
+    "simalirity.pkl"
+)
+
+
+movie_dict = pickle.load(
+    open("movie_dict.pkl", "rb")
+)
+
+similarity = pickle.load(
+    open("simalirity.pkl", "rb")
+)
+
+movies = pd.DataFrame(movie_dict)
 
 st.set_page_config(
     page_title="MovieGPT",
@@ -98,15 +146,25 @@ def recommend(movie):
     return recommended_movies, recommended_posters
 
 
-movie_dict = pickle.load(
-    open("movie_dict.pkl", "rb")
-)
 
-similarity = pickle.load(
-    open("simalirity.pkl", "rb")
-)
 
-movies = pd.DataFrame(movie_dict)
+
+
+# movie_dict = pickle.load(
+#     open("movie_dict.pkl", "rb")
+# )
+
+# similarity = pickle.load(
+#     open("simalirity.pkl", "rb")
+# )
+
+# movies = pd.DataFrame(movie_dict)
+
+
+
+
+
+
 
 st.title("🎬 MovieGPT")
 
