@@ -65,7 +65,7 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-st.caption("Made by Shaheer Rangrej")
+st.caption("Made by Shaheer Rangrej & Ismile Mirza 🤝")
 
 TMDB_API_KEY = st.secrets["TMDB_API_KEY"]
 
